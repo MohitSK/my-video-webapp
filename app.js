@@ -1,10 +1,8 @@
 // =========================================================================
 // 1. CONFIGURATION
 // =========================================================================
-require('dotenv').config();
-
 // Paste your TMDB v3 API key here
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_API_KEY = "ce3df16a904fe0591886cf38d92c61ab";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342";
