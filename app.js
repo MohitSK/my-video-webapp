@@ -158,8 +158,12 @@ function showView(viewName) {
     detailsView.classList.add("hidden");
     playerView.classList.add("hidden");
 
-    if (viewName === "home") {
+	if (viewName === "home") {
         homeView.classList.remove("hidden");
+        const firstCard = categoriesContainer.querySelector(".movie-card");
+        if (firstCard) {
+            firstCard.focus();
+        }
     } else if (viewName === "search") {
         searchView.classList.remove("hidden");
     } else if (viewName === "details") {
@@ -249,6 +253,14 @@ seasonSelect.addEventListener("change", function() {
     loadSeasonEpisodes(currentMediaId, currentSeason);
 });
 
+// Prevent the video iframe from stealing TV remote focus when it finishes loading
+videoIframe.addEventListener("load", function() {
+    const activeServerBtn = serverButtons.querySelector(".server-btn.active");
+    if (activeServerBtn) {
+        activeServerBtn.focus();
+    }
+});
+
 // =========================================================================
 // 6. TMDB API HELPER
 // =========================================================================
@@ -303,6 +315,11 @@ async function loadHomeCategories() {
 
             row.appendChild(scroller);
             categoriesContainer.appendChild(row);
+        }
+		// Put TV remote focus on the very first movie card automatically
+        const firstCard = categoriesContainer.querySelector(".movie-card");
+        if (firstCard) {
+            firstCard.focus();
         }
     } catch (error) {
         showError("TMDB Error: " + error.message);
