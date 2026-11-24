@@ -181,6 +181,31 @@ function clearError() {
     errorBanner.classList.add("hidden");
 }
 
+/**
+ * Makes any HTML element selectable with a TV D-Pad remote.
+ * - Adds tabindex="0" so D-Pad can land on it
+ * - Scrolls smoothly into view (both horizontally and vertically) when focused
+ * - Triggers the click action when the remote's OK / Enter button is pressed
+ */
+function makeTvFocusable(element, onSelectAction) {
+    element.setAttribute("tabindex", "0");
+
+    element.addEventListener("focus", function() {
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "center"
+        });
+    });
+
+    element.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onSelectAction();
+        }
+    });
+}
+
 // =========================================================================
 // 5. EVENT LISTENERS
 // =========================================================================
@@ -354,10 +379,13 @@ function createMediaCard(item, mediaType, sourceView) {
         </div>
     `;
 
-    card.addEventListener("click", function() {
+	const openThisItem = function() {
         previousView = sourceView;
         openDetails(item.id, mediaType);
-    });
+    };
+
+    card.addEventListener("click", openThisItem);
+    makeTvFocusable(card, openThisItem);
 
     return card;
 }
@@ -503,11 +531,14 @@ async function loadSeasonEpisodes(tvId, seasonNumber) {
             `;
 
             // Clicking an episode opens the player for that Season & Episode
-            epCard.addEventListener("click", function() {
-                currentEpisode = epNumber;
-                currentEpisodeName = epName;
-                openPlayer();
-            });
+			const playThisEpisode = function() {
+			        currentEpisode = epNumber;
+			        currentEpisodeName = epName;
+			        openPlayer();
+			};
+
+		    epCard.addEventListener("click", playThisEpisode);
+		    makeTvFocusable(epCard, playThisEpisode);
 
             episodesList.appendChild(epCard);
         }
@@ -534,6 +565,15 @@ function openPlayer() {
     showView("player");
     renderServerButtons();
     loadIframeVideo();
+
+	renderServerButtons();
+    loadIframeVideo();
+
+    // Focus the first server button so TV remote can easily switch servers
+    const firstServerBtn = serverButtons.querySelector(".server-btn");
+    if (firstServerBtn) {
+        firstServerBtn.focus();
+    }
 }
 
 function renderServerButtons() {
