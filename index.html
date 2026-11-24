@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyVideoApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="nav-left">
+            <h1 id="homeButton" class="app-title">MyVideoApp</h1>
+        </div>
+
+        <form id="searchForm" class="search-form">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search movies or TV shows..."
+                autocomplete="off"
+                required
+            >
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <!-- Error Banner (Hidden unless an API error occurs) -->
+    <div id="errorBanner" class="error-banner hidden"></div>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 1: HOME PAGE (Horizontal Category Rows)              -->
+    <!-- ========================================================= -->
+    <main id="homeView" class="page-container">
+        <div id="categoriesContainer">
+            <!-- Category rows will be created here by app.js -->
+        </div>
+    </main>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 2: SEARCH RESULTS (Grid of Movie & TV Cards)         -->
+    <!-- ========================================================= -->
+    <section id="searchView" class="page-container hidden">
+        <div class="view-header">
+            <button id="searchBackBtn" class="btn-secondary">← Home</button>
+            <h2 id="searchHeading">Search Results</h2>
+        </div>
+        <div id="searchGrid" class="movie-grid">
+            <!-- Search result cards go here -->
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 3: DETAILS PAGE (Movies & TV Shows)                  -->
+    <!-- ========================================================= -->
+    <section id="detailsView" class="hidden">
+        <!-- Backdrop Banner -->
+        <div id="detailsBackdrop" class="details-backdrop">
+            <div class="backdrop-overlay">
+                <button id="detailsBackBtn" class="btn-secondary">← Back</button>
+            </div>
+        </div>
+
+        <!-- Poster, Info & Play Button -->
+        <div class="details-content">
+            <img id="detailsPoster" class="details-poster" src="" alt="Poster">
+
+            <div class="details-info">
+                <h2 id="detailsTitle">Title</h2>
+
+                <div id="detailsMeta" class="details-meta">
+                    <!-- Year • Runtime/Seasons • Rating -->
+                </div>
+
+                <div id="detailsGenres" class="details-genres">
+                    <!-- Genre tags -->
+                </div>
+
+                <!-- Shown ONLY for Movies -->
+                <button id="playMovieBtn" class="btn-play hidden">▶ Play Movie</button>
+
+                <h3>Overview</h3>
+                <p id="detailsOverview" class="details-overview"></p>
+            </div>
+        </div>
+
+        <!-- Shown ONLY for TV Shows: Season Selector + Episode List -->
+        <div id="episodesSection" class="episodes-section hidden">
+            <div class="episodes-header">
+                <h3>Episodes</h3>
+                <select id="seasonSelect" class="season-select"></select>
+            </div>
+
+            <div id="episodesList" class="episodes-list">
+                <!-- Episode rows will be created here by app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 4: VIDEO PLAYER (Iframe + Server Switcher)           -->
+    <!-- ========================================================= -->
+    <section id="playerView" class="page-container hidden">
+        <div class="view-header">
+            <button id="playerBackBtn" class="btn-secondary">← Back to Details</button>
+            <h2 id="playerTitle">Now Playing</h2>
+        </div>
+
+        <div class="video-wrapper">
+            <iframe
+                id="videoIframe"
+                src=""
+                frameborder="0"
+                allowfullscreen
+				allow="autoplay; encrypted-media; picture-in-picture"
+                referrerpolicy="origin">
+            </iframe>
+        </div>
+
+        <div class="server-section">
+            <h3>Select Server:</h3>
+            <div id="serverButtons" class="server-buttons">
+                <!-- Server buttons go here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
