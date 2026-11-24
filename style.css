@@ -417,3 +417,35 @@ body {
     border-color: #3d8bfd;
     font-weight: bold;
 }
+
+/* ========================================================= */
+/* ANDROID TV & D-PAD FOCUS FIXES                            */
+/* ========================================================= */
+
+/* Clear bright outline so you can see where the TV remote is */
+button:focus,
+input:focus,
+select:focus,
+.movie-card:focus,
+.episode-card:focus,
+.server-btn:focus {
+    outline: 3px solid #ffffff !important;
+    outline-offset: 2px;
+    transform: scale(1.04);
+    border-color: #3d8bfd !important;
+}
+
+/* Give horizontal scrollers top/bottom padding so scaled cards don't clip */
+.card-scroller {
+    padding: 8px 4px 14px 4px;
+    scroll-behavior: smooth;
+}
+
+/* Fix half-cut video player on 16:9 TV screens */
+.video-wrapper {
+    padding-bottom: 0 !important; /* Override old 56.25% trick */
+    height: 70vh;                 /* Leaves room for header & server buttons */
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto 16px auto;
+}
